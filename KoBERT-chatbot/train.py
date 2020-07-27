@@ -6,8 +6,8 @@ import gluonnlp as nlp
 import mxnet as mx
 import pandas as pd
 from gluonnlp.data import SentencepieceTokenizer
-from kogpt2.mxnet_kogpt2 import get_mxnet_kogpt2_model
-from kogpt2.utils import get_tokenizer
+from kobert.mxnet_kobert import get_mxnet_kobert_model
+from kobert.utils import get_tokenizer
 from mxnet import gluon, nd
 from mxnet.gluon import nn
 
@@ -153,7 +153,7 @@ else:
 
 def train():
     tok_path = get_tokenizer()
-    model, vocab = get_mxnet_kogpt2_model(ctx=ctx)
+    model, vocab = get_mxnet_kobert_model(ctx=ctx)
     # tok = SentencepieceTokenizer(tok_path, num_best=0, alpha=0)
 
     data = pd.read_csv('Chatbot_data/카페_qna.csv')
@@ -252,7 +252,7 @@ def train():
 
 def chat(model_params, sent='0'):
     tok_path = get_tokenizer()
-    model, vocab = get_mxnet_kogpt2_model(ctx=ctx)
+    model, vocab = get_mxnet_kobert_model(ctx=ctx)
     tok = SentencepieceTokenizer(tok_path, num_best=0, alpha=0)
     kogptqa = KoGPT2Chat(model)
     kogptqa.load_parameters(model_params, ctx=ctx)
